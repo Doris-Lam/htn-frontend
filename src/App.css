@@ -1,0 +1,77 @@
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+.app::before,
+.app::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app::before {
+  background:
+    radial-gradient(600px 320px at 12% 20%, rgba(46, 211, 198, 0.22), transparent 60%),
+    radial-gradient(520px 320px at 85% 10%, rgba(255, 95, 31, 0.2), transparent 65%),
+    radial-gradient(640px 360px at 70% 90%, rgba(139, 92, 255, 0.2), transparent 60%);
+  filter: blur(0px);
+  animation: floatOrbs 18s ease-in-out infinite alternate;
+}
+
+.app::after {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 120px 120px, 180px 180px;
+  background-position: 0 0, 40px 60px;
+  opacity: 0.28;
+  mix-blend-mode: screen;
+  animation: driftStars 26s linear infinite;
+}
+
+.login-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 6, 10, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes floatOrbs {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(20px, -24px, 0);
+  }
+}
+
+@keyframes driftStars {
+  0% {
+    background-position: 0 0, 40px 60px;
+  }
+  100% {
+    background-position: 120px 240px, -100px 140px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app::before,
+  .app::after {
+    animation: none;
+  }
+}
