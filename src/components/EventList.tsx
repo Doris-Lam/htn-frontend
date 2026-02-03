@@ -7,6 +7,8 @@ import {
   filterEventsByType,
   searchEvents,
 } from '../utils/eventHelpers';
+import { CalendarView } from './CalendarView';
+import { Icon } from './Icon';
 import './EventList.css';
 
 interface EventListProps {
@@ -30,6 +32,7 @@ export const EventList: React.FC<EventListProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<EventTypeFilter>('all');
+  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
 
   // Process events: filter by permission, sort by time, filter by type, search
   const filteredEvents = useMemo(() => {
@@ -52,7 +55,12 @@ export const EventList: React.FC<EventListProps> = ({
             <p>Events Schedule</p>
           </div>
           <div className="user-info">
-            {isAuthenticated && <span className="user-badge">🔓 Logged in</span>}
+            {isAuthenticated && (
+              <span className="user-badge">
+                <Icon name="user" className="icon icon--xs" />
+                Logged in
+              </span>
+            )}
             {isAuthenticated && (
               <button className="logout-btn" onClick={onLogout}>
                 Logout
@@ -71,31 +79,56 @@ export const EventList: React.FC<EventListProps> = ({
               className="search-input"
               aria-label="Search events"
             />
-            <span className="search-icon">🔍</span>
+            <span className="search-icon">
+              <Icon name="search" className="icon icon--sm" />
+            </span>
           </div>
 
-          <div className="filter-buttons">
-            <label htmlFor="event-type-filter" className="filter-label">
-              Event Type:
-            </label>
-            <select
-              id="event-type-filter"
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value as EventTypeFilter)}
-              className="type-filter"
-              aria-label="Filter by event type"
-            >
-              {eventTypeOptions.map((type) => (
-                <option key={type} value={type}>
-                  {type === 'all'
-                    ? 'All Types'
-                    : type
-                        .split('_')
-                        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                        .join(' ')}
-                </option>
-              ))}
-            </select>
+          <div className="filters-actions">
+            <div className="filter-buttons">
+              <label htmlFor="event-type-filter" className="filter-label">
+                Event Type:
+              </label>
+              <select
+                id="event-type-filter"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value as EventTypeFilter)}
+                className="type-filter"
+                aria-label="Filter by event type"
+              >
+                {eventTypeOptions.map((type) => (
+                  <option key={type} value={type}>
+                    {type === 'all'
+                      ? 'All Types'
+                      : type
+                          .split('_')
+                          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                          .join(' ')}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="view-toggle" role="group" aria-label="View mode">
+              <button
+                type="button"
+                className={`view-btn ${viewMode === 'list' ? 'is-active' : ''}`}
+                onClick={() => setViewMode('list')}
+                aria-pressed={viewMode === 'list'}
+              >
+                <Icon name="list" className="icon icon--xs" />
+                List
+              </button>
+              <button
+                type="button"
+                className={`view-btn ${viewMode === 'calendar' ? 'is-active' : ''}`}
+                onClick={() => setViewMode('calendar')}
+                aria-pressed={viewMode === 'calendar'}
+              >
+                <Icon name="grid" className="icon icon--xs" />
+                Calendar
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -145,20 +178,25 @@ export const EventList: React.FC<EventListProps> = ({
               </p>
               {!isAuthenticated && (
                 <p className="auth-hint">
-                  💡 Log in to view private events and additional content
+                  <Icon name="info" className="icon icon--xs" />
+                  Log in to view private events and additional content
                 </p>
               )}
             </div>
-            <div className="events-grid">
-              {filteredEvents.map((event) => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  isAuthenticated={isAuthenticated}
-                  onViewDetails={onViewEvent}
-                />
-              ))}
-            </div>
+            {viewMode === 'calendar' ? (
+              <CalendarView events={filteredEvents} onSelectEvent={onViewEvent} />
+            ) : (
+              <div className="events-grid">
+                {filteredEvents.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    isAuthenticated={isAuthenticated}
+                    onViewDetails={onViewEvent}
+                  />
+                ))}
+              </div>
+            )}
           </>
         )}
       </main>

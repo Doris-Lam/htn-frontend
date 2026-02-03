@@ -67,6 +67,33 @@ select {
   font-family: inherit;
 }
 
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+.icon--xs {
+  width: 0.9em;
+  height: 0.9em;
+}
+
+.icon--sm {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.icon--md {
+  width: 1.35em;
+  height: 1.35em;
+}
+
+.icon--lg {
+  width: 1.8em;
+  height: 1.8em;
+}
+
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {

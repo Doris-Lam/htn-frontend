@@ -1,6 +1,7 @@
 import React from 'react';
 import { TEvent } from '../types/event';
 import { formatDateTime, formatEventType, getEventTypeColor } from '../utils/eventHelpers';
+import { Icon } from './Icon';
 import './EventCard.css';
 
 interface EventCardProps {
@@ -29,7 +30,9 @@ export const EventCard: React.FC<EventCardProps> = ({
       {!canView && (
         <div className="lock-overlay">
           <div className="lock-badge">
-            <span className="lock-icon">🔒</span>
+            <span className="lock-icon">
+              <Icon name="lock" className="icon icon--lg" />
+            </span>
             <p>Login to view</p>
           </div>
         </div>
@@ -50,7 +53,9 @@ export const EventCard: React.FC<EventCardProps> = ({
         <h3 className="event-title">{event.name}</h3>
 
         <div className="event-time">
-          <span className="time-label">📅</span>
+          <span className="time-label">
+            <Icon name="calendar" className="icon icon--sm" />
+          </span>
           <span>{formatDateTime(event.start_time)}</span>
         </div>
 
@@ -60,7 +65,10 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         {event.speakers && event.speakers.length > 0 && (
           <div className="speakers-section">
-            <span className="speakers-label">👤 Speakers:</span>
+            <span className="speakers-label">
+              <Icon name="user" className="icon icon--xs" />
+              Speakers:
+            </span>
             <div className="speakers-list">
               {event.speakers.map((speaker, index) => (
                 <span key={index} className="speaker-name">
@@ -73,7 +81,9 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         {event.related_events && event.related_events.length > 0 && (
           <div className="related-events-hint">
-            <span className="link-icon">🔗</span>
+            <span className="link-icon">
+              <Icon name="link" className="icon icon--xs" />
+            </span>
             <span>{event.related_events.length} related event(s)</span>
           </div>
         )}

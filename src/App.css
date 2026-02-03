@@ -21,22 +21,21 @@
 
 .app::before {
   background:
-    radial-gradient(600px 320px at 12% 20%, rgba(46, 211, 198, 0.22), transparent 60%),
-    radial-gradient(520px 320px at 85% 10%, rgba(255, 95, 31, 0.2), transparent 65%),
-    radial-gradient(640px 360px at 70% 90%, rgba(139, 92, 255, 0.2), transparent 60%);
-  filter: blur(0px);
-  animation: floatOrbs 18s ease-in-out infinite alternate;
+    radial-gradient(720px 380px at 10% 18%, rgba(46, 211, 198, 0.18), transparent 70%),
+    radial-gradient(680px 360px at 88% 8%, rgba(255, 95, 31, 0.16), transparent 72%),
+    radial-gradient(760px 420px at 70% 92%, rgba(139, 92, 255, 0.16), transparent 72%);
+  filter: blur(12px);
+  animation: floatOrbs 20s ease-in-out infinite alternate;
 }
 
 .app::after {
   background-image:
-    radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
     radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 120px 120px, 180px 180px;
-  background-position: 0 0, 40px 60px;
-  opacity: 0.28;
+  background-size: 180px 180px;
+  background-position: 20px 30px;
+  opacity: 0.16;
   mix-blend-mode: screen;
-  animation: driftStars 26s linear infinite;
+  animation: driftStars 38s linear infinite;
 }
 
 .login-modal-overlay {

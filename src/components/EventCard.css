@@ -1,47 +1,68 @@
 .event-card {
+<<<<<<< ours
+  --pixel: 12px;
   background:
-    linear-gradient(160deg, rgba(20, 24, 32, 0.92), rgba(14, 16, 20, 0.98)),
-    radial-gradient(180px 120px at 20% 0%, rgba(46, 211, 198, 0.08), transparent 70%);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+    linear-gradient(0deg, rgba(255, 255, 255, 0.22) 0 8px, transparent 8px 18px) left / 6px 18px repeat-y,
+    linear-gradient(0deg, rgba(255, 255, 255, 0.18) 0 10px, transparent 10px 20px) right / 6px 20px repeat-y,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 8px, transparent 8px 18px) top / 18px 2px repeat-x,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 8px, transparent 8px 18px) bottom / 18px 2px repeat-x,
+    linear-gradient(160deg, rgba(20, 24, 32, 0.94), rgba(12, 14, 20, 0.98));
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+=======
+  background: linear-gradient(160deg, rgba(20, 24, 32, 0.92), rgba(12, 14, 20, 0.98));
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+>>>>>>> theirs
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
   position: relative;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  isolation: isolate;
 }
 
 .event-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-4), var(--accent-2));
-  opacity: 0.9;
+  inset: -40%;
+  background:
+    radial-gradient(220px 140px at 20% 20%, rgba(46, 211, 198, 0.35), transparent 70%),
+    radial-gradient(240px 160px at 80% 10%, rgba(255, 95, 31, 0.3), transparent 70%),
+    radial-gradient(260px 180px at 60% 100%, rgba(139, 92, 255, 0.3), transparent 70%);
+  opacity: 0.22;
+  filter: blur(18px);
+  z-index: 0;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
 }
 
 .event-card::after {
   content: '';
   position: absolute;
-  top: -30%;
-  left: -60%;
-  width: 80%;
-  height: 160%;
-  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.12), transparent);
-  opacity: 0.6;
-  transform: translate3d(0, 0, 0) rotate(12deg);
-  animation: cardSweep 8s ease-in-out infinite;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: cover, 140px 140px;
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  z-index: 0;
   pointer-events: none;
 }
 
 .event-card:hover:not(.locked) {
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transform: translateY(-6px);
+}
+
+.event-card:hover::before {
+  opacity: 0.38;
+  filter: blur(22px);
+  transform: translate3d(10px, -6px, 0);
 }
 
 .event-card.private-event {
@@ -72,8 +93,9 @@
 }
 
 .lock-icon {
-  font-size: 32px;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lock-badge p {
@@ -93,6 +115,8 @@
   padding: 18px 18px 0;
   gap: 10px;
   background-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 .event-type-badge {
@@ -106,6 +130,7 @@
   letter-spacing: 0.2em;
   font-family: var(--mono);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .private-badge {
@@ -125,39 +150,11 @@
 .event-content {
   padding: 18px;
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
   gap: 14px;
   position: relative;
   z-index: 1;
-}
-
-.event-content::before {
-  content: '';
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: linear-gradient(140deg, rgba(255, 95, 31, 0.12), transparent 60%);
-  opacity: 0.8;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.event-content::after {
-  content: '';
-  position: absolute;
-  inset: 12px;
-  border-radius: 16px;
-  background-image:
-    radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.16;
-  z-index: 0;
-  pointer-events: none;
 }
 
 .event-content > * {
@@ -186,6 +183,9 @@
 }
 
 .time-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 14px;
 }
 
@@ -204,9 +204,13 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-height: 60px;
 }
 
 .speakers-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 10px;
   font-weight: 600;
   color: var(--ink-muted);
@@ -224,12 +228,12 @@
 .speaker-name {
   display: inline-block;
   padding: 5px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .related-events-hint {
@@ -244,9 +248,13 @@
   border: 1px solid rgba(139, 92, 255, 0.5);
   background: rgba(139, 92, 255, 0.12);
   width: fit-content;
+  margin-top: auto;
 }
 
 .link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 13px;
 }
 
@@ -283,18 +291,6 @@
   opacity: 0.7;
 }
 
-@keyframes cardSweep {
-  0% {
-    transform: translate3d(-40%, -10%, 0) rotate(12deg);
-  }
-  50% {
-    transform: translate3d(40%, 10%, 0) rotate(12deg);
-  }
-  100% {
-    transform: translate3d(80%, 20%, 0) rotate(12deg);
-  }
-}
-
 @media (max-width: 768px) {
   .event-title {
     font-size: 18px;
@@ -306,7 +302,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .event-card::before,
   .event-card::after {
-    animation: none;
+    transition: none;
   }
 }

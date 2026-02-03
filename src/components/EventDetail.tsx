@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TEvent } from '../types/event';
 import { formatDateTime, formatEventType, getEventTypeColor } from '../utils/eventHelpers';
 import { eventService } from '../services/eventService';
+import { Icon } from './Icon';
 import './EventDetail.css';
 
 interface EventDetailProps {
@@ -117,14 +118,16 @@ export const EventDetail: React.FC<EventDetailProps> = ({
             onClick={onClose}
             aria-label="Close event details"
           >
-            ✕
+            <Icon name="x" className="icon icon--sm" />
           </button>
         </div>
 
         <div className="modal-content">
           {!canView ? (
             <div className="locked-content">
-              <div className="lock-icon">🔒</div>
+              <div className="lock-icon">
+                <Icon name="lock" className="icon icon--lg" />
+              </div>
               <h2>This event is private</h2>
               <p>Please log in to view this event's details</p>
             </div>
@@ -158,7 +161,8 @@ export const EventDetail: React.FC<EventDetailProps> = ({
                   <ul className="speakers-list">
                     {event.speakers.map((speaker, index) => (
                       <li key={index} className="speaker-item">
-                        👤 {speaker.name}
+                        <Icon name="user" className="icon icon--sm" />
+                        {speaker.name}
                       </li>
                     ))}
                   </ul>
@@ -176,7 +180,8 @@ export const EventDetail: React.FC<EventDetailProps> = ({
                         rel="noopener noreferrer"
                         className="link-button public-link"
                       >
-                        📍 Public Link
+                        <Icon name="external" className="icon icon--sm" />
+                        Public Link
                       </a>
                     )}
                     {event.private_url && (
@@ -186,7 +191,8 @@ export const EventDetail: React.FC<EventDetailProps> = ({
                         rel="noopener noreferrer"
                         className="link-button private-link"
                       >
-                        🔗 Private Link
+                        <Icon name="link" className="icon icon--sm" />
+                        Private Link
                       </a>
                     )}
                   </div>
