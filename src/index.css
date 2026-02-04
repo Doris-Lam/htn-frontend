@@ -8,10 +8,14 @@
   --surface-3: #101318;
   --ink: #f7f2ea;
   --ink-muted: #b9b1a3;
-  --accent: #ff5f1f;
+  --accent: #6ee7c4;
   --accent-2: #2ed3c6;
-  --accent-3: #f4ff5c;
+  --accent-3: #a7f3d0;
   --accent-4: #8b5cff;
+  --accent-grad: linear-gradient(120deg, var(--accent), var(--accent-2));
+  --accent-grad-strong: linear-gradient(120deg, var(--accent-2), var(--accent-3));
+  --accent-grad-soft: linear-gradient(140deg, rgba(110, 231, 196, 0.45), rgba(46, 211, 198, 0.2));
+  --divider: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
   --border: rgba(255, 255, 255, 0.08);
   --shadow-soft: 0 18px 44px rgba(0, 0, 0, 0.45);
   --shadow-strong: 0 30px 90px rgba(0, 0, 0, 0.65);
@@ -36,16 +40,21 @@ body {
   height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--body);
   color: var(--ink);
   background-color: var(--bg);
   background:
-    radial-gradient(900px 520px at 12% -10%, rgba(244, 255, 92, 0.16), transparent 60%),
-    radial-gradient(900px 520px at 90% -15%, rgba(46, 211, 198, 0.2), transparent 55%),
-    radial-gradient(900px 520px at 50% 120%, rgba(255, 95, 31, 0.22), transparent 60%),
-    radial-gradient(800px 420px at 40% 20%, rgba(139, 92, 255, 0.18), transparent 60%),
+    radial-gradient(900px 520px at 12% -10%, rgba(167, 243, 208, 0.14), transparent 60%),
+    radial-gradient(900px 520px at 90% -15%, rgba(46, 211, 198, 0.18), transparent 55%),
+    radial-gradient(800px 420px at 40% 20%, rgba(139, 92, 255, 0.14), transparent 60%),
+    radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(180deg, #0b0d10 0%, #0f1217 48%, #12161c 100%);
+  background-size: auto, auto, auto, 120px 120px, auto;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

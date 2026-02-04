@@ -8,6 +8,14 @@
   min-height: 100vh;
   position: relative;
   isolation: isolate;
+  --scroll-progress: 0;
+  --scroll-header-opacity: 0.08;
+  --scroll-card-shadow: 0.5;
+  --scroll-orb-opacity: 0.18;
+}
+
+.page {
+  padding-top: 24px;
 }
 
 .app::before,
@@ -25,6 +33,7 @@
     radial-gradient(680px 360px at 88% 8%, rgba(255, 95, 31, 0.16), transparent 72%),
     radial-gradient(760px 420px at 70% 92%, rgba(139, 92, 255, 0.16), transparent 72%);
   filter: blur(12px);
+  opacity: var(--scroll-orb-opacity);
   animation: floatOrbs 20s ease-in-out infinite alternate;
 }
 
@@ -41,13 +50,13 @@
 .login-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(4, 6, 10, 0.7);
+  background: rgba(4, 6, 10, 0.82);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 200;
   padding: 24px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
 @keyframes floatOrbs {

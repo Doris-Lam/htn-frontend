@@ -18,6 +18,29 @@
   overflow: hidden;
 }
 
+.login-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(17, 20, 26, 0.6);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.login-close:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
 .login-card::before {
   content: '';
   position: absolute;
@@ -124,7 +147,9 @@
 
 .login-button {
   padding: 12px;
-  background: linear-gradient(120deg, var(--accent-2), var(--accent-3));
+  background: var(--accent-grad-strong);
+  background-size: 160% 160%;
+  background-position: 0% 50%;
   color: #0b0d10;
   border: none;
   border-radius: 999px;
@@ -133,12 +158,16 @@
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.22em;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-position 0.25s ease;
+  box-shadow:
+    0 12px 26px rgba(46, 211, 198, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .login-button:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  background-position: 100% 50%;
 }
 
 .login-button:active:not(:disabled) {
@@ -176,6 +205,56 @@
   font-family: var(--mono);
   color: var(--ink);
   font-weight: 600;
+}
+
+.demo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.demo-section p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  position: absolute;
+  top: -12px;
+  background: transparent;
+  padding: 0 12px;
+}
+
+.demo-button {
+  flex: 1;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  transition: all 0.2s ease;
+}
+
+.demo-button:hover:not(:disabled) {
+  background: rgba(46, 211, 198, 0.15);
+  border-color: rgba(46, 211, 198, 0.4);
+  color: rgba(46, 211, 198, 0.9);
+  transform: translateY(-1px);
+}
+
+.demo-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 @media (max-width: 480px) {

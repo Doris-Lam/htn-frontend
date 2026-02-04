@@ -1,6 +1,6 @@
 import React from 'react';
 import { TEvent } from '../types/event';
-import { formatDateTime, formatEventType, getEventTypeColor } from '../utils/eventHelpers';
+import { formatEventType, getEventTypeColor } from '../utils/eventHelpers';
 import { Icon } from './Icon';
 import './EventCard.css';
 
@@ -18,6 +18,25 @@ export const EventCard: React.FC<EventCardProps> = ({
   const isPrivate = event.permission === 'private';
   const canView = !isPrivate || isAuthenticated;
   const typeColor = getEventTypeColor(event.event_type);
+  const timeLabel = new Date(event.start_time).toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+
+  const handleGlowMove = (event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    event.currentTarget.style.setProperty('--glow-x', `${x}px`);
+    event.currentTarget.style.setProperty('--glow-y', `${y}px`);
+  };
+
+  const handleGlowLeave = (event: React.MouseEvent<HTMLElement>) => {
+    event.currentTarget.style.removeProperty('--glow-x');
+    event.currentTarget.style.removeProperty('--glow-y');
+  };
 
   return (
     <div
@@ -42,22 +61,14 @@ export const EventCard: React.FC<EventCardProps> = ({
         <div className="event-type-badge" style={{ backgroundColor: typeColor }}>
           {formatEventType(event.event_type)}
         </div>
-        {isPrivate && (
-          <div className="private-badge" title="Private event - requires login">
-            Private
-          </div>
-        )}
+        <div className="event-time">
+          <Icon name="calendar" className="icon icon--sm" />
+          <span>{timeLabel}</span>
+        </div>
       </div>
 
       <div className="event-content">
         <h3 className="event-title">{event.name}</h3>
-
-        <div className="event-time">
-          <span className="time-label">
-            <Icon name="calendar" className="icon icon--sm" />
-          </span>
-          <span>{formatDateTime(event.start_time)}</span>
-        </div>
 
         {event.description && (
           <p className="event-description">{event.description}</p>
@@ -78,15 +89,6 @@ export const EventCard: React.FC<EventCardProps> = ({
             </div>
           </div>
         )}
-
-        {event.related_events && event.related_events.length > 0 && (
-          <div className="related-events-hint">
-            <span className="link-icon">
-              <Icon name="link" className="icon icon--xs" />
-            </span>
-            <span>{event.related_events.length} related event(s)</span>
-          </div>
-        )}
       </div>
 
       <div className="event-footer">
@@ -95,8 +97,11 @@ export const EventCard: React.FC<EventCardProps> = ({
           onClick={() => onViewDetails(event.id)}
           aria-label={`View details for ${event.name}`}
           disabled={!canView}
+          onMouseMove={handleGlowMove}
+          onMouseLeave={handleGlowLeave}
         >
-          {canView ? 'View Details' : 'Locked'}
+          {canView ? 'View details' : 'Locked'}
+          <span className="cta-arrow">→</span>
         </button>
       </div>
     </div>

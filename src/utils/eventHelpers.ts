@@ -93,11 +93,11 @@ export const formatEventType = (type: string): string => {
 export const getEventTypeColor = (type: string): string => {
   switch (type) {
     case 'workshop':
-      return '#ff5f1f'; // Vivid orange
+      return '#6ee7c4'; // Mint
     case 'activity':
       return '#2ed3c6'; // Teal
     case 'tech_talk':
-      return '#9f84ff'; // Electric purple (lighter for contrast)
+      return '#8b5cff'; // Electric purple
     default:
       return '#6b7280'; // Gray
   }
