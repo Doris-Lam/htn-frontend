@@ -3,6 +3,7 @@ import { TEvent, AuthUser } from './types/event';
 import { LoginComponent } from './components/LoginComponent';
 import { EventList } from './components/EventList';
 import { EventDetail } from './components/EventDetail';
+import Aurora from './components/Aurora';
 import { eventService } from './services/eventService';
 import './App.css';
 
@@ -90,6 +91,14 @@ function App() {
   // Login modal overlay appears if user not authenticated
   return (
     <div className="app">
+      <div className="aurora-layer" aria-hidden="true">
+        <Aurora
+          colorStops={['#7cff67', '#B19EEF', '#5227FF']}
+          blend={0.5}
+          amplitude={1.0}
+          speed={1}
+        />
+      </div>
       <EventList
         events={events}
         isAuthenticated={user?.isAuthenticated ?? false}

@@ -86,89 +86,89 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ events, onSelectEven
     <section className="calendar-shell" id="calendar" aria-label="Event calendar">
       <h2 className="calendar-title">Event Calendar</h2>
       <div className="calendar-panel">
-        <div className="calendar-top">
-          <div className="calendar-date-block">
-            <Icon name="calendar" className="icon icon--md" />
-            <span>{monthLabel}</span>
-            <strong>{dayLabel}</strong>
-          </div>
-          <div className="calendar-week">
-            <button className="calendar-nav-btn" onClick={handlePrevDay} aria-label="Previous day">
-              <Icon name="chevron-left" className="icon icon--sm" />
-            </button>
-            {weekDates.map((date) => {
-              const isActive = getDateKey(date) === selectedKey;
-              return (
-                <button
-                  key={getDateKey(date)}
-                  className={`calendar-weekday ${isActive ? 'is-active' : ''}`}
-                  onClick={() => {
-                    setHasUserSelected(true);
-                    setSelectedDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-                  }}
-                >
-                  {date.toLocaleString('en-US', { weekday: 'short' })}
-                </button>
-              );
-            })}
-            <button className="calendar-nav-btn" onClick={handleNextDay} aria-label="Next day">
-              <Icon name="chevron-right" className="icon icon--sm" />
-            </button>
-          </div>
-        </div>
-
-        <div className="calendar-events-list">
-          {dayEvents.length === 0 ? (
-            <div className="calendar-empty">
-              <p>No events scheduled for this day.</p>
+          <div className="calendar-top">
+            <div className="calendar-date-block">
+              <Icon name="calendar" className="icon icon--md" />
+              <span>{monthLabel}</span>
+              <strong>{dayLabel}</strong>
             </div>
-          ) : (
-            dayEvents.map((event) => (
-              <button
-                key={event.id}
-                className="calendar-event-card"
-                onClick={() => onSelectEvent(event.id)}
-              >
-                <div
-                  className="calendar-thumb"
-                  style={{ borderColor: getEventTypeColor(event.event_type) }}
-                >
-                  <div
-                    className="thumb-glow"
-                    style={{ backgroundColor: getEventTypeColor(event.event_type) }}
-                  ></div>
-                </div>
-                <div className="calendar-event-content">
-                  <div className="calendar-meta">
-                    <span className="calendar-time">
-                      {formatTimeRange(event.start_time, event.end_time)}
-                    </span>
-                    <span className="calendar-type">
-                      {formatEventType(event.event_type)}
-                    </span>
-                  </div>
-                  <h3>{event.name}</h3>
-                  {event.description && <p>{event.description}</p>}
-                  <div className="calendar-tags">
-                    <span
-                      className="calendar-tag"
-                      style={{
-                        backgroundColor: getEventTypeColor(event.event_type),
-                      }}
-                    >
-                      {formatEventType(event.event_type)}
-                    </span>
-                    {event.permission && (
-                      <span className="calendar-tag ghost">
-                        {event.permission}
-                      </span>
-                    )}
-                  </div>
-                </div>
+            <div className="calendar-week">
+              <button className="calendar-nav-btn" onClick={handlePrevDay} aria-label="Previous day">
+                <Icon name="chevron-left" className="icon icon--sm" />
               </button>
-            ))
-          )}
-        </div>
+              {weekDates.map((date) => {
+                const isActive = getDateKey(date) === selectedKey;
+                return (
+                  <button
+                    key={getDateKey(date)}
+                    className={`calendar-weekday ${isActive ? 'is-active' : ''}`}
+                    onClick={() => {
+                      setHasUserSelected(true);
+                      setSelectedDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+                    }}
+                  >
+                    {date.toLocaleString('en-US', { weekday: 'short' })}
+                  </button>
+                );
+              })}
+              <button className="calendar-nav-btn" onClick={handleNextDay} aria-label="Next day">
+                <Icon name="chevron-right" className="icon icon--sm" />
+              </button>
+            </div>
+          </div>
+
+          <div className="calendar-events-list">
+            {dayEvents.length === 0 ? (
+              <div className="calendar-empty">
+                <p>No events scheduled for this day.</p>
+              </div>
+            ) : (
+              dayEvents.map((event) => (
+                <button
+                  key={event.id}
+                  className="calendar-event-card"
+                  onClick={() => onSelectEvent(event.id)}
+                >
+                    <div
+                      className="calendar-thumb"
+                      style={{ borderColor: getEventTypeColor(event.event_type) }}
+                    >
+                      <div
+                        className="thumb-glow"
+                        style={{ backgroundColor: getEventTypeColor(event.event_type) }}
+                      ></div>
+                    </div>
+                    <div className="calendar-event-content">
+                      <div className="calendar-meta">
+                        <span className="calendar-time">
+                          {formatTimeRange(event.start_time, event.end_time)}
+                        </span>
+                        <span className="calendar-type">
+                          {formatEventType(event.event_type)}
+                        </span>
+                      </div>
+                      <h3>{event.name}</h3>
+                      {event.description && <p>{event.description}</p>}
+                      <div className="calendar-tags">
+                        <span
+                          className="calendar-tag"
+                          style={{
+                            backgroundColor: getEventTypeColor(event.event_type),
+                          }}
+                        >
+                          {formatEventType(event.event_type)}
+                        </span>
+                        {event.permission && (
+                          <span className="calendar-tag ghost">
+                            {event.permission}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+              ))
+            )}
+          </div>
       </div>
     </section>
   );
