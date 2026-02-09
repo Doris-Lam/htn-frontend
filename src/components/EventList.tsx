@@ -157,20 +157,6 @@ export const EventList: React.FC<EventListProps> = ({
   return (
     <div className="event-list-container">
       <header className="event-list-header" id="schedule">
-        <div className="promo-banner" role="note">
-          <span>
-            React Bits Pro is coming: 65+ pro components, 100+ UI blocks, 5 full templates.
-            Click to join waitlist.
-          </span>
-          <a
-            className="promo-cta"
-            href="https://reactbits.dev"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Join waitlist
-          </a>
-        </div>
         <div className="header-content">
           <div className="header-title-section">
             <span className="eyebrow">Events Schedule</span>
