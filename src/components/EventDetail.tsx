@@ -169,7 +169,7 @@ export const EventDetail: React.FC<EventDetailProps> = ({
                 </div>
               )}
 
-              {(event.public_url || event.private_url) && (
+              {(event.public_url || (isAuthenticated && event.private_url)) && (
                 <div className="links-section">
                   <h2>Links</h2>
                   <div className="links-list">
@@ -184,7 +184,7 @@ export const EventDetail: React.FC<EventDetailProps> = ({
                         Public Link
                       </a>
                     )}
-                    {event.private_url && (
+                    {isAuthenticated && event.private_url && (
                       <a
                         href={event.private_url}
                         target="_blank"
